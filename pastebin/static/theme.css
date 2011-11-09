@@ -2,17 +2,16 @@ body{
 	margin: 0;
     padding: 0;
 	font-family: Helvetica, Arial, sans-serif;
-    font-size: 13px;
 }
 
 a:link,
 a:visited{
-    color: #3D813A;
+    color: #003399;
     text-decoration: none;
 }
 
 a:hover{
-    color: #52AA4D;
+    color: #0044dd;
     text-decoration: underline;
 }
 
@@ -52,14 +51,18 @@ div.hint{
  ******************************************* */
 
 #header{
-	background-color: #D6F1B7;
-	border-bottom: 1px solid #C6EB9A;
-    padding: 10px 20px;
-    font-size: 14px;
+	background-color: #e6e6e6;
+	border-bottom: 1px solid #dddddd;
+	padding: 10px 20px;
+	font-size: 14px;
 }
 
 #header span.new_snippet{
     float: right;
+}
+
+#header img{
+    border: 0;
 }
 
 #header h1{
@@ -293,7 +296,7 @@ div.tree div.submit input{
 
 #footer a:link,
 #footer a:visited{
-	background-color: #D6F1B7;
+	background-color: #e6e6e6;
     color: #555;
     text-decoration: none;
     padding: 3px 6px;
@@ -301,7 +304,7 @@ div.tree div.submit input{
 
 #footer a:hover,
 #footer a:active{
-	background-color: #D6F1B7;
+	background-color: #e6e6e6;
     color: #000;
     text-decoration: none;
 }
