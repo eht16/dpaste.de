@@ -1,23 +1,26 @@
 {% extends "dpaste/base.html" %}
-{% load i18n %}
 
-{% block title %}{% trans "New snippet" %}{% endblock %}
-{% block headline %}<h1>{% trans "Paste a new snippet" %}</h1>{% endblock %}
+<!--{% block title %}New snippet{% endblock %}-->
+{% block headline %}<h1>Paste a new snippet</h1>{% endblock %}
 
 {% block content %}
-    <h2>{% trans "New snippet" %}</h2>
+    <h2>New snippet</h2>
     {% include "dpaste/snippet_form.html" %}
 {% endblock %}
 
 
 {% block sidebar %}
-    <h2>{% trans "DPASTE_HOMEPAGE_TITLE" %}</h2>
-    <p>{% trans "DPASTE_HOMEPAGE_DESCRIPTION" %}</p>
+    <h2>Geany's Pastebin</h2>
+    <p>Geany's Pastebin is a code pastebin originally inspired
+       by <a href="http://dpaste.com/">dpaste.com</a> and <a href="http://dpaste.de/">dpaste.de</a>.
+       Find the advantages and the public sourcecode on
+       <a href="https://github.com/eht16/dpaste.de">Github</a>.
+</p>
 {% endblock %}
 
 
 {% block script_footer %}
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script src="/static/jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(document).ready(function(){
     {% if request.session.userprefs.display_all_lexer %}

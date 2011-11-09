@@ -1,6 +1,5 @@
 {% extends "dpaste/base.html" %}
 {% load mptt_tags %}
-{% load i18n %}
 
 {% block extrahead %}
      {% if request.session.userprefs %}
@@ -14,14 +13,14 @@
      {% endif %}
 {% endblock %}
 
-{% block title %}{% trans "Snippet" %} #{{ snippet.pk }}{% endblock %}
+{% block title %}Snippet #{{ snippet.pk }}{% endblock %}
 {% block headline %}
     <h1>
-        {% trans "Snippet" %} #{{ snippet.pk }}
+        Snippet #{{ snippet.pk }}
         {% if snippet.parent_id %}
-            {% blocktrans with snippet.parent.get_absolute_url as parent_url and snippet.parent.id as parent_id %}(Copy of <a href="{{ parent_url }}">snippet #{{ parent_id }}</a>){% endblocktrans %}
+            (Copy of <a href="{{ snippet.parent.get_absolute_url }}">snippet #{{ snippet.parent.id }}</a>)
         {% endif %}
-        <span class="date">{{ snippet.published|date:_("DATETIME_FORMAT") }} ({% trans "UTC" %})</span>
+        <span class="date">{{ snippet.published|date:_("DATETIME_FORMAT") }} (UTC)</span>
     </h1>
 {% endblock %}
 {% load dpaste_tags %}
@@ -31,17 +30,17 @@
 
 <div class="accordion">
     <div class="snippet-options">
-        <abbr title="{% trans "Time to life" %}">TTL:</abbr> {{ snippet.expires|timeuntil  }}
+        <abbr title="Time to life">TTL:</abbr> {{ snippet.expires|timeuntil  }}
         &mdash;
         {% if snippet.pk|in_list:request.session.snippet_list %}
-        <a onclick="return confirm('{% trans "Really delete this snippet?" %}')" href="{% url snippet_delete snippet.secret_id %}">Delete now!</a>
+        <a onclick="return confirm('Really delete this snippet?')" href="{% url snippet_delete snippet.secret_id %}">Delete now!</a>
         &mdash;
         {% endif %}
-        <a id="toggleWordwrap" href="#">{% trans "Wordwrap" %}</a>
+        <a id="toggleWordwrap" href="#">Wordwrap</a>
     </div>
     <h2>
-        {% if snippet.title %}{{ snippet.title }}{% else %} {% trans "Snippet" %} #{{ snippet.id}}{% endif %}
-        <span>{% if snippet.author %}{% blocktrans with snippet.author as author %}by {{ author }}{% endblocktrans %}{% endif %}</span>
+        {% if snippet.title %}{{ snippet.title }}{% else %} Snippet #{{ snippet.id}}{% endif %}
+-        <span>{% if snippet.author %}by {{ snippet.author }}{% endif %}</span>
     </h2>
 
     <div class="container">
@@ -55,7 +54,7 @@
         </div>
     </div>
 
-    <h2>{% trans "Write an answer" %} &rarr;</h2>
+    <h2>Write an answer &rarr;</h2>
     <div class="container" style="display: none;">
         {% include "dpaste/snippet_form.html" %}
     </div>
@@ -65,7 +64,7 @@
 
 
 {% block sidebar %}
-    <h2>{% trans "History" %}</h2>
+    <h2>History</h2>
 
     <form method="get" id="diffform" action="{% url snippet_diff %}">
     {% csrf_token %}
@@ -78,21 +77,21 @@
             <input type="radio" name="b" value="{{ tree_item.id }}" {% ifequal snippet tree_item %}checked="checked"{% endifequal %}/>
         </span>
         {% ifequal snippet tree_item %}
-            <strong>{% trans "Snippet" %} #{{ tree_item.id }}</strong>
+            <strong>Snippet #{{ tree_item.id }}</strong>
        {% else %}
-       <a href="{{ tree_item.get_absolute_url }}">{% trans "Snippet" %} #{{ tree_item.id }}</a>
+       <a href="{{ tree_item.get_absolute_url }}">Snippet #{{ tree_item.id }}</a>
         {% endifequal %}
         </div>
         {% for level in structure.closed_levels %}</li></ul>{% endfor %}
         {% endfor %}
         <div class="submit">
-            <input type="submit" value="{% trans "Compare" %}"/>
+            <input type="submit" value="Compare"/>
         </div>
     </div>
     </form>
 
-    <h2>{% trans "Options" %}</h2>
-    <p><a href="{% url snippet_details_raw snippet.secret_id %}">{% trans "View raw" %}</a></p>
+    <h2>Options</h2>
+    <p><a href="{% url snippet_details_raw snippet.secret_id %}">View raw</a></p>
 {% endblock %}
 
 {% block script_footer %}

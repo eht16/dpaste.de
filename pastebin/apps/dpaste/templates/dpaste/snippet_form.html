@@ -1,4 +1,3 @@
-{% load i18n %}
 <form method="post" action="." class="snippetform">
 {% csrf_token %}
 <ol>
@@ -9,11 +8,11 @@
         {{ field }}
         {% if request.session.userprefs.display_all_lexer %}
         {% ifequal field.name "lexer" %}
-            <input type="button" value="{% trans "Guess lexer" %}" id="guess_lexer_btn"/>
+            <input type="button" value="Guess lexer" id="guess_lexer_btn"/>
         {% endifequal %}
         {% endif %}
     </li>
     {% endfor %}
-    <li class="submit"><input type="submit" value="{% trans "Paste it" %}"/></li>
+    <li class="submit"><input type="submit" value="Paste it"/></li>
 </ol>
 </form>
