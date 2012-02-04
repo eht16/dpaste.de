@@ -1,34 +1,34 @@
 {% extends "base.html" %}
 
 {% block headline %}
-    <h1>About Geany's pastebin</h1>
+    <h1>About {{ site.name }}</h1>
 {% endblock %}
 
 {% block content %}
 
 <h3>What is pastebin?</h3>
-<p>pastebin is here to help you collaborate on debugging code snippets. If you're not familiar with the idea, 
+<p>pastebin is here to help you collaborate on debugging code snippets. If you're not familiar with the idea,
 most people use it like this:</p>
 <ul>
-<li><a href="/">submit</a> a code fragment to pastebin, 
-getting a url like http://pastebin.geany.org/abc1234</li>
+<li><a href="/">submit</a> a code fragment to pastebin,
+getting a url like http://{{ site.domain }}/abc1234</li>
 <li>paste the url into an IRC or IM conversation</li>
 <li>someone responds by reading and perhaps submitting a modification of your code</li>
 <li>you then view the modification, maybe using the built in diff tool to help locate the changes</li>
 </ul>
 
 <h3>How can I view the differences between two posts?</h3>
-<p>When you view a post, you have the opportunity of editing the text - <strong>this creates a new post</strong>, 
+<p>When you view a post, you have the opportunity of editing the text - <strong>this creates a new post</strong>,
 but when you view it, you'll be given a 'diff' link which allows you to compare the changes between the old and the new version</p>
 <p>This is a powerful feature, great for seeing exactly what lines someone changed</p>
 
 <h3>How can I delete a post?</h3>
-<p>If you clicked the "remember me" checkbox when posting, you will be able to delete post from the same computer you posted from - 
+<p>If you clicked the "remember me" checkbox when posting, you will be able to delete post from the same computer you posted from -
 simply view the post and click the "delete post" link.</p>
 <p>In other cases, contact us and we will delete it for you</p>
 
 <h3>Can I get the source?</h3>
-<p>The source code to this site is available under a BSD(?) licence. 
+<p>The source code to this site is available under a BSD(?) licence.
 You can get the source code from <a href="https://github.com/eht16/dpaste.de">https://github.com/eht16/dpaste.de</a>.</p>
 
 
@@ -36,11 +36,11 @@ You can get the source code from <a href="https://github.com/eht16/dpaste.de">ht
 <h2>API</h2>
 
 <pre>#!/usr/bin/env python
- 
+
 import urllib
 import urllib2
 import sys
- 
+
 def paste_code():
     request = urllib2.Request(
         'http://dpaste.de/api/',
@@ -48,7 +48,7 @@ def paste_code():
     )
     response = urllib2.urlopen(request)
     print response.read()[1:-1]
- 
+
 if __name__ == '__main__':
     paste_code()</pre>
 

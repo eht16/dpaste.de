@@ -10,7 +10,7 @@ TEMPLATE_DEBUG = DEBUG
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'UTC'
 USE_I18N = True
 SITE_ID = 1
 
@@ -105,7 +105,6 @@ INSTALLED_APPS = (
     'mptt',
     'pastebin',
     'pastebin.apps.dpaste',
-    'gunicorn',
 )
 
 #==============================================================================
@@ -115,3 +114,16 @@ INSTALLED_APPS = (
 # How many recent snippets to save for every user? IDs of this snippets are
 # stored in the user session.
 MAX_SNIPPETS_PER_USER = 25
+
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.request',
+    'pastebin.context_processors.site',
+)
+
