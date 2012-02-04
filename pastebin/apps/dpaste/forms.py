@@ -68,21 +68,13 @@ class SnippetForm(forms.ModelForm):
         # Save snippet in the db
         super(SnippetForm, self).save(*args, **kwargs)
 
-        # Add the snippet to the user session list
-        if self.request.session.get('snippet_list', False):
-            if len(self.request.session['snippet_list']) >= getattr(settings, 'MAX_SNIPPETS_PER_USER', 10):
-                self.request.session['snippet_list'].pop(0)
-            self.request.session['snippet_list'] += [self.instance.pk]
-        else:
-            self.request.session['snippet_list'] = [self.instance.pk]
-
         return self.request, self.instance
 
     class Meta:
         model = Snippet
         fields = (
-            'title',
             'content',
+            'title',
             'author',
             'lexer',
         )
