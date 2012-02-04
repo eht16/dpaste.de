@@ -12,6 +12,15 @@ from django.core.urlresolvers import reverse
 from django.utils import simplejson
 import difflib
 
+
+def _get_snippet_list(request):
+    try:
+        snippet_list = get_list_or_404(Snippet)[:10]
+    except ValueError, e:
+        snippet_list = list()
+    return snippet_list
+
+
 def snippet_new(request, template_name='dpaste/snippet_new.html'):
 
     if request.method == "POST":
@@ -22,8 +31,11 @@ def snippet_new(request, template_name='dpaste/snippet_new.html'):
     else:
         snippet_form = SnippetForm(request=request)
 
+    snippet_list = _get_snippet_list(request)
+
     template_context = {
         'snippet_form': snippet_form,
+        'snippet_list': snippet_list,
     }
 
     return render_to_response(
@@ -44,7 +56,7 @@ def snippet_details(request, snippet_id, template_name='dpaste/snippet_details.h
     except ObjectDoesNotExist:
         raise Http404('This snippet does not exist anymore. Its likely that its '
                       'lifetime is expired.')
-        
+
     tree = snippet.get_root()
     tree = tree.get_descendants(include_self=True)
 
@@ -61,7 +73,9 @@ def snippet_details(request, snippet_id, template_name='dpaste/snippet_details.h
     else:
         snippet_form = SnippetForm(initial=new_snippet_initial, request=request)
 
+    snippet_list = _get_snippet_list(request)
     template_context = {
+        'snippet_list': snippet_list,
         'snippet_form': snippet_form,
         'snippet': snippet,
         'lines': range(snippet.get_linecount()),

@@ -229,6 +229,10 @@ form.snippetform ul.errorlist li{
     width: auto !important;
 }
 
+div #snippet_list {
+    font-size: 70%;
+}
+
 div.tree{
     margin: 0 0 15px 0;
     line-height: 1.8em;

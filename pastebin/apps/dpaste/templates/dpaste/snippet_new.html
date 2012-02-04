@@ -6,11 +6,19 @@
 {% block content %}
     <h2>New snippet</h2>
     {% include "dpaste/snippet_form.html" %}
+
+<p>&nbsp;</p>
+<div id="snippet_list">
+{% for snippet in snippet_list %}
+    <a href="{{ snippet.get_absolute_url }}">#{{ snippet.pk }} by {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %}</a> ({{ snippet.age }})&nbsp;&nbsp;&nbsp;
+{% endfor %}
+</div>
+
 {% endblock %}
 
 
 {% block sidebar %}
-    <h2>Geany's Pastebin</h2>
+    <h2>{{ page_title }}</h2>
     <p>Geany's Pastebin is a code pastebin originally inspired
        by <a href="http://dpaste.com/">dpaste.com</a> and <a href="http://dpaste.de/">dpaste.de</a>.
        Find the advantages and the public sourcecode on
