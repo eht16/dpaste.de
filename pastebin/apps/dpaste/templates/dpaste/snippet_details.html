@@ -59,6 +59,13 @@
         {% include "dpaste/snippet_form.html" %}
     </div>
 </div>
+
+<p>&nbsp;</p>
+<div id="snippet_list">
+{% for snippet in snippet_list %}
+    <a href="{{ snippet.get_absolute_url }}">#{{ snippet.pk }} by {% if snippet.author %}{{ snippet.author }}{% else %}Anonymous{% endif %}</a> ({{ snippet.age }})&nbsp;&nbsp;&nbsp;
+{% endfor %}
+</div>
 {% endblock %}
 
 
