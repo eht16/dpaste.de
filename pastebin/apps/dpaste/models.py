@@ -3,6 +3,7 @@ import difflib
 import random
 import mptt
 import re
+import time
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.db.models import permalink
@@ -26,6 +27,40 @@ class Snippet(models.Model):
 
     class Meta:
         ordering = ('-published',)
+
+    def age(self):
+        age = time.mktime(self.published.timetuple())
+        return self._readable_delta(age)
+
+    def _readable_delta(self, from_seconds, until_seconds=None):
+        '''Returns a nice readable delta.
+
+        readable_delta(1, 2)           # 1 second ago
+        readable_delta(1000, 2000)     # 16 minutes ago
+        readable_delta(1000, 9000)     # 2 hours, 133 minutes ago
+        readable_delta(1000, 987650)   # 11 days ago
+        readable_delta(1000)           # 15049 days ago (relative to now)
+        '''
+
+        if not until_seconds:
+            until_seconds = time.time()
+
+        seconds = until_seconds - from_seconds
+        delta = datetime.timedelta(seconds=seconds)
+
+        # deltas store time as seconds and days, we have to get hours and minutes ourselves
+        delta_minutes = delta.seconds // 60
+        delta_hours = delta_minutes // 60
+
+        ## show a fuzzy but useful approximation of the time delta
+        if delta.days:
+            return '%d days ago' % (delta.days)
+        elif delta_hours:
+            return '%d hours ago' % (delta_hours)
+        elif delta_minutes:
+            return '%d minutes ago' % (delta_minutes)
+        else:
+            return '%d seconds ago' % (delta.seconds)
 
     def get_linecount(self):
         return len(self.content.splitlines())
