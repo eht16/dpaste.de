@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand
 # Work out the project module name and root directory, assuming that this file
 # is located at [project]/bin/manage.py
 PROJECT_DIR, PROJECT_MODULE_NAME = os.path.split(
-                os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+                os.path.dirname(os.path.realpath(__file__)))
 
 # Check that the project module can be imported.
 try:
