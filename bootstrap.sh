@@ -2,8 +2,8 @@
 
 set -e
 
-virtualenv --clear --no-site-packages env
+virtualenv --clear --no-site-packages venv
 
-. env/bin/activate
+. venv/bin/activate
 
 pip install -r requirements.pip
