@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Replace these three settings.
-PROJDIR="/srv/django/pastebin/pastebin"
-SOCKET="${PROJDIR}/run/pastebin.socket"
-PIDFILE="${PROJDIR}/run/pastebin.pid"
-OUTLOG="${PROJDIR}/run/pastebin.log"
-ERRLOG="${PROJDIR}/run/pastebin_error.log"
+BASE="/srv/fastcgi"
+PROJDIR="${BASE}/pastebin/pastebin"
+SOCKET="${BASE}/run/pastebin.socket"
+PIDFILE="${BASE}/run/pastebin.pid"
+OUTLOG="${BASE}/run/pastebin.log"
+ERRLOG="${BASE}/run/pastebin_error.log"
 
 STOP=""
 GIT_PULL=""
