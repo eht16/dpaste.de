@@ -2,7 +2,7 @@
 
 {% block title %}{Snippet #{{ snippet.pk }}{% endblock %}
 {% block headline %}
-<h1>Your latest {{ snippets_max }} snippets</h1>
+<h1>Latest {{ snippets_max }} snippets</h1>
 {% endblock %}
 
 {% block content %}
@@ -18,8 +18,4 @@
     <p>No snippets available.</p>
     {% endif %}
 
-
-    <div class="hint">
-        <p><strong>Remember:</strong> Your data is stored in a cookie.</p>
-    </div>
 {% endblock %}

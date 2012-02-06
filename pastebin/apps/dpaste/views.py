@@ -13,9 +13,10 @@ from django.utils import simplejson
 import difflib
 
 
-def _get_snippet_list(request):
+def _get_snippet_list():
     try:
-        snippet_list = get_list_or_404(Snippet)[:10]
+        max_snippets = getattr(settings, 'MAX_SNIPPETS_PER_USER', 10)
+        snippet_list = get_list_or_404(Snippet)[:max_snippets]
     except ValueError, e:
         snippet_list = list()
     return snippet_list
@@ -31,7 +32,7 @@ def snippet_new(request, template_name='dpaste/snippet_new.html'):
     else:
         snippet_form = SnippetForm(request=request)
 
-    snippet_list = _get_snippet_list(request)
+    snippet_list = _get_snippet_list()
 
     template_context = {
         'snippet_form': snippet_form,
@@ -73,7 +74,7 @@ def snippet_details(request, snippet_id, template_name='dpaste/snippet_details.h
     else:
         snippet_form = SnippetForm(initial=new_snippet_initial, request=request)
 
-    snippet_list = _get_snippet_list(request)
+    snippet_list = _get_snippet_list()
     template_context = {
         'snippet_list': snippet_list,
         'snippet_form': snippet_form,
@@ -105,12 +106,10 @@ def snippet_delete(request, snippet_id):
     snippet.delete()
     return HttpResponseRedirect(reverse('snippet_new'))
 
-def snippet_userlist(request, template_name='dpaste/snippet_list.html'):
 
-    try:
-        snippet_list = get_list_or_404(Snippet, pk__in=request.session.get('snippet_list', None))
-    except ValueError:
-        snippet_list = None
+def snippet_list(request, template_name='dpaste/snippet_list.html'):
+
+    snippet_list = _get_snippet_list()
 
     template_context = {
         'snippets_max': getattr(settings, 'MAX_SNIPPETS_PER_USER', 10),
