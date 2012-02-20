@@ -105,6 +105,7 @@ INSTALLED_APPS = (
     'mptt',
     'pastebin',
     'pastebin.apps.dpaste',
+    'pastebin.apps.api',
 )
 
 #==============================================================================

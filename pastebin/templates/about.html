@@ -43,7 +43,7 @@ import sys
 
 def paste_code():
     request = urllib2.Request(
-        'http://dpaste.de/api/',
+        'http://{{ site.domain }}/api/',
         urllib.urlencode([('content', ''.join(sys.stdin.readlines()))]),
     )
     response = urllib2.urlopen(request)

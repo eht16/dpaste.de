@@ -1,8 +1,9 @@
 import datetime
-import re
 from piston.utils import rc
 from piston.handler import AnonymousBaseHandler
 from pastebin.apps.dpaste.models import Snippet
+from django.contrib.sites.models import Site
+
 
 class SnippetHandler(AnonymousBaseHandler):
     allowed_methods = ('POST',)
@@ -18,4 +19,4 @@ class SnippetHandler(AnonymousBaseHandler):
             expires=datetime.datetime.now()+datetime.timedelta(seconds=60*60*24*30)
         )
         s.save()
-        return 'http://dpaste.de%s' % s.get_absolute_url()
+        return 'http://%s%s' % (Site.objects.get_current().domain, s.get_absolute_url())
