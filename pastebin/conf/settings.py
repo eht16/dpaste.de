@@ -106,6 +106,7 @@ INSTALLED_APPS = (
     'pastebin',
     'pastebin.apps.dpaste',
     'pastebin.apps.api',
+    'honeypot',
 )
 
 #==============================================================================
@@ -128,3 +129,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'pastebin.context_processors.site',
 )
 
+# Honeypot
+HONEYPOT_FIELD_NAME = 'website'

@@ -5,6 +5,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponseBadRequest, \
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.utils.translation import ugettext_lazy as _
+from honeypot.decorators import check_honeypot
 from pastebin.apps.dpaste.forms import SnippetForm, UserSettingsForm
 from pastebin.apps.dpaste.models import Snippet
 from pastebin.apps.dpaste.highlight import pygmentize, guess_code_lexer
@@ -22,6 +23,7 @@ def _get_snippet_list():
     return snippet_list
 
 
+@check_honeypot
 def snippet_new(request, template_name='dpaste/snippet_new.html'):
 
     if request.method == "POST":

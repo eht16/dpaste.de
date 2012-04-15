@@ -1,4 +1,5 @@
 django==1.3
+django-honeypot
 django-mptt==0.4.2
 django-piston==0.2.2
 pygments==1.4

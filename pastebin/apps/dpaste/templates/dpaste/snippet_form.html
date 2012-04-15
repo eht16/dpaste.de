@@ -1,5 +1,8 @@
+{% load honeypot %}
+
 <form method="post" action="." class="snippetform">
 {% csrf_token %}
+{% render_honeypot_field %}
 <ol>
     {% for field in snippet_form %}
     <li>
