@@ -48,6 +48,7 @@ def snippet_new(request, template_name='dpaste/snippet_new.html'):
     )
 
 
+@check_honeypot
 def snippet_details(request, snippet_id, template_name='dpaste/snippet_details.html', is_raw=False):
 
     try:
