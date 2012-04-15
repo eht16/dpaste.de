@@ -2,6 +2,7 @@
 
 # Replace these three settings.
 BASE="/srv/fastcgi"
+MANAGEDIR="${BASE}/pastebin"
 PROJDIR="${BASE}/pastebin/pastebin"
 SOCKET="${BASE}/run/pastebin.socket"
 PIDFILE="${BASE}/run/pastebin.pid"
@@ -19,7 +20,7 @@ function stop_server
 {
     if [ -f "${PIDFILE}" ]; then
         echo "--- Stop FastCGI server"
-        kill `cat "${PIDFILE}"`
+        sudo -u www-data kill `cat "${PIDFILE}"`
         rm -f "${PIDFILE}"
     fi
 }
@@ -29,8 +30,8 @@ function start_server
 {
     echo "--- Start FastCGI server"
     # (re)start fcgi server
-    /usr/bin/env - \
-      python manage.py runfcgi \
+    sudo -u www-data ${MANAGEDIR}/venv/bin/python \
+        ${MANAGEDIR}/manage.py runfcgi \
         protocol=fcgi \
         socket="${SOCKET}" \
         pidfile="${PIDFILE}" \
@@ -77,18 +78,18 @@ cd ${PROJDIR}
 
 while [ -n "$*" ]
 do
-	case $1 in
-		--stop)
-		STOP="1"
-		;;
-		--git-pull)
-		GIT_PULL="1"
-		;;
-		--deploy)
-		DEPLOY="1"
-		;;
-	esac
-	shift
+    case $1 in
+        --stop)
+            STOP="1"
+        ;;
+        --git-pull)
+            GIT_PULL="1"
+        ;;
+        --deploy)
+            DEPLOY="1"
+        ;;
+    esac
+    shift
 done
 
 
