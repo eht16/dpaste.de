@@ -10,7 +10,7 @@
     {% for snippet in snippet_list %}
     <h2>
         <a href="{{ snippet.get_absolute_url }}">Snippet #{{ snippet.pk }}</a>
-        ~ {{ snippet.published|date:_("DATETIME_FORMAT") }}
+        ~ {{ snippet.published|date:"Y/m/d G:i:s" }}
     </h2>
     <p style="color: #555; margin: 8px 0 20px 0;">{{ snippet.content|truncatewords:40 }}</p>
     {% endfor %}

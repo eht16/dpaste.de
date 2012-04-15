@@ -20,7 +20,7 @@
         {% if snippet.parent_id %}
             (Copy of <a href="{{ snippet.parent.get_absolute_url }}">snippet #{{ snippet.parent.id }}</a>)
         {% endif %}
-        <span class="date">{{ snippet.published|date:_("DATETIME_FORMAT") }} (UTC)</span>
+        <span class="date">{{ snippet.published|date:"Y/m/d G:i:s" }} (UTC)</span>
     </h1>
 {% endblock %}
 {% load dpaste_tags %}
