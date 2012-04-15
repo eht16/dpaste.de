@@ -51,7 +51,7 @@ function start_server
 function activate_virtualenv
 {
     echo "--- Enter virtual env"
-    source ../venv/bin/activate
+    source ${MANAGEDIR}/venv/bin/activate
 }
 
 
@@ -59,7 +59,7 @@ function update_static_files
 {
     if [ "$DEPLOY" ]; then
         echo "--- Deploy static files"
-        python manage.py collectstatic --noinput
+        ${MANAGEDIR}/venv/bin/python ${MANAGEDIR}/manage.py collectstatic --noinput
     fi
 }
 
