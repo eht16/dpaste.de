@@ -18,6 +18,7 @@ LEXER_LIST = (
     ('html', 'HTML'),
     ('irc', 'IRC logs'),
     ('js', 'JavaScript'),
+    ('perl', 'Perl'),
     ('php', 'PHP'),
     ('pycon', 'Python console session'),
     ('pytb', 'Python Traceback'),
@@ -27,7 +28,7 @@ LEXER_LIST = (
     ('sql', 'SQL'),
     ('text', 'Text only'),
 )
-LEXER_DEFAULT = 'python'
+LEXER_DEFAULT = 'text'
 
 
 class NakedHtmlFormatter(HtmlFormatter):
@@ -48,7 +49,7 @@ def pygmentize(code_string, lexer_name=LEXER_DEFAULT):
             lexer = guess_lexer(code_string)
         except:
             lexer = PythonLexer()
-    
+
     try:
         return highlight(code_string, lexer, NakedHtmlFormatter())
     except:
