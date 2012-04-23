@@ -328,6 +328,27 @@ div.tree div.submit input{
     text-decoration: none;
 }
 
+
+table, th, td {
+    border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #e6e6e6;
+}
+
+td {
+    padding: 5px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
 /* *******************************************
  * Pygments
  ******************************************* */

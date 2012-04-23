@@ -39,21 +39,45 @@ You can get the source code from <a href="https://github.com/eht16/dpaste.de">ht
 
 import urllib
 import urllib2
+import os
 import sys
 
 def paste_code():
+    fields = []
+    fields.append(('content', ''.join(sys.stdin.readlines())))
+    fields.append(('author', os.getlogin()))
+    fields.append(('lexer', 'python'))
     request = urllib2.Request(
         'http://{{ site.domain }}/api/',
-        urllib.urlencode([('content', ''.join(sys.stdin.readlines()))]),
+        urllib.urlencode(fields),
     )
     response = urllib2.urlopen(request)
-    print response.read()[1:-1]
+    print response.read()[:-1]
 
 if __name__ == '__main__':
     paste_code()</pre>
 
-<p>Save this script in <code>/usr/local/bin/dpaste</code> and <code>chmod +x ..filepath</code>.</p>
-<p>Usage: <code>cat foo.txt | dpaste</code></p>
+<p>Save this script in <code>/usr/local/bin/gpaste</code> and <code>chmod +x ..filepath</code>.</p>
+<p>Usage: <code>cat foo.txt | gpaste</code></p>
+
+<h3>Supported fields</h3>
+<p>The only mandatory field is <strong>content</strong> which should contain the text to be pasted.</p>
+<p>Other accepted, optional fields are:
+<table>
+<tr><th>Field</th><th>Possible values</th><th>Description</th></tr>
+<tr><td class="nowrap">expires</td><td>
+    <ul>
+        <li>3600 (1 hour)</li>
+        <li>604800 (1 week)</li>
+        <li>2592000 (1 month)</li>
+    </ul>
+</td><td>Time to live in seconds, defaults to 3600</td></tr>
+<tr><td>title</td><td class="nowrap">Maximum 120 characters</td><td>The title of this paste</td></tr>
+<tr><td>author</td><td class="nowrap">Maximum 30 characters</td><td>The author's name</td></tr>
+<tr><td>lexer</td><td class="nowrap">python, text, php, perl, c, bash, ...</td>
+        <td>The lexer to be used, all lexers supported by Pygments are possible and
+        also most of Geany's filetype names (geany --ft-names)</td></tr>
+</table></p>
 {% endblock %}
 
 
