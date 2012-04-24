@@ -329,19 +329,21 @@ div.tree div.submit input{
 }
 
 
-table, th, td {
+table.apidoc {
     border: 1px solid black;
-}
-
-table {
     border-collapse: collapse;
 }
 
-th {
+.apidoc th,
+.apidoc td {
+    border: 1px solid black;
+}
+
+.apidoc th {
     background-color: #e6e6e6;
 }
 
-td {
+.apidoc td {
     padding: 5px;
 }
 
