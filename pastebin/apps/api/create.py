@@ -108,7 +108,12 @@ class CreateSnippetApiController(object):
             original_lexer = self._data.get('lexer', LEXER_DEFAULT)
             self._data['lexer'] = GEANY_LEXER_MAPPING[original_lexer]
         except KeyError:
-            self._data['lexer'] = original_lexer
+            if original_lexer in [lexer[0] for lexer in LEXER_LIST_ALL]:
+                self._data['lexer'] = original_lexer
+            else:
+                # fall back to the text lexer as a last resort, this means we do accept invalid
+                # lexers and simply override them with 'text'
+                self._data['lexer'] = LEXER_DEFAULT
 
     #----------------------------------------------------------------------
     def _create_snippet(self):
