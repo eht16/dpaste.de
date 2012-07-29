@@ -19,7 +19,7 @@ def _get_snippet_list():
     try:
         max_snippets = getattr(settings, 'MAX_SNIPPETS_PER_USER', 10)
         snippet_list = get_list_or_404(Snippet)[:max_snippets]
-    except ValueError, e:
+    except ValueError:
         snippet_list = list()
     return snippet_list
 
@@ -158,13 +158,13 @@ def userprefs(request, template_name='dpaste/userprefs.html'):
     return render_to_response(
         template_name,
         template_context,
-        RequestContext(request)
-    )
+        RequestContext(request))
+
 
 def snippet_diff(request, template_name='dpaste/snippet_diff.html'):
 
     if request.GET.get('a') and request.GET.get('a').isdigit() \
-    and request.GET.get('b') and request.GET.get('b').isdigit():
+                    and request.GET.get('b') and request.GET.get('b').isdigit():
         try:
             fileA = Snippet.objects.get(pk=int(request.GET.get('a')))
             fileB = Snippet.objects.get(pk=int(request.GET.get('b')))
@@ -195,8 +195,8 @@ def snippet_diff(request, template_name='dpaste/snippet_diff.html'):
     return render_to_response(
         template_name,
         template_context,
-        RequestContext(request)
-    )
+        RequestContext(request))
+
 
 def guess_lexer(request):
     code_string = request.GET.get('codestring', False)
