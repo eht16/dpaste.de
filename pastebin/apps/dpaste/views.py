@@ -12,6 +12,7 @@ from pastebin.apps.dpaste.highlight import pygmentize, guess_code_lexer
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
 import difflib
+from datetime import datetime
 
 
 def _get_snippet_list():
@@ -23,6 +24,12 @@ def _get_snippet_list():
     return snippet_list
 
 
+def _clean_expired_snippets():
+    deleteable_snippets = Snippet.objects.filter(expires__lte=datetime.now())
+    if deleteable_snippets:
+        deleteable_snippets.delete()
+
+
 @check_honeypot
 def snippet_new(request, template_name='dpaste/snippet_new.html'):
 
@@ -32,6 +39,8 @@ def snippet_new(request, template_name='dpaste/snippet_new.html'):
             request, new_snippet = snippet_form.save()
             return HttpResponseRedirect(new_snippet.get_absolute_url())
     else:
+        # housekeeping
+        _clean_expired_snippets()
         snippet_form = SnippetForm(request=request)
 
     snippet_list = _get_snippet_list()
@@ -50,6 +59,9 @@ def snippet_new(request, template_name='dpaste/snippet_new.html'):
 
 @check_honeypot
 def snippet_details(request, snippet_id, template_name='dpaste/snippet_details.html', is_raw=False):
+
+    # housekeeping
+    _clean_expired_snippets()
 
     try:
         snippet = Snippet.objects.get(secret_id=snippet_id)
@@ -97,6 +109,7 @@ def snippet_details(request, snippet_id, template_name='dpaste/snippet_details.h
         return response
     else:
         return response
+
 
 def snippet_delete(request, snippet_id):
     snippet = get_object_or_404(Snippet, secret_id=snippet_id)
